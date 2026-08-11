@@ -1,2 +1,7 @@
 node_modules/
-cypress.env.prod.json
+.env
+.DS_Store
+cypress/videos/
+cypress/screenshots/
+.idea/
+*.log
