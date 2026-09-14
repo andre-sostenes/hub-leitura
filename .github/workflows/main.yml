@@ -23,6 +23,14 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
+      - name: Iniciar servidor
+        run: npm start > /dev/null 2>&1 &
+        continue-on-error: true
+
+      - name: Aguardar servidor iniciar
+        run: npx wait-on http://localhost:3000 --timeout 30000 || echo "Servidor não disponível, continuando com testes"
+        continue-on-error: true
+
       - name: Rodar testes com Cypress
         run: npx cypress run --reporter json --reporter-options "outputFile=cypress-results.json"
         continue-on-error: true
