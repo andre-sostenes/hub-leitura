@@ -1,0 +1,39 @@
+name: Test e Publicar Resultados
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Rodar testes com Cypress
+        run: npx cypress run --reporter json --reporter-options "outputFile=cypress-results.json"
+        continue-on-error: true
+
+      - name: Criar diretório de resultado de testes
+        if: always()
+        run: mkdir -p test-results && cp cypress-results.json test-results/ 2>/dev/null || true
+
+      - name: Deploy para GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./test-results
