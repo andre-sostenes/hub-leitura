@@ -7,9 +7,8 @@ module.exports = defineConfig({
     },
     baseUrl: process.env.BASE_URL || "http://localhost:3000",
 
-    'goog:ChromeOptions': {
-      args: ['--headless', '--disable-gpu'],
+    "goog:ChromeOptions": {
+      args: ["--headless", "--disable-gpu"],
     },
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
 });

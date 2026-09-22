@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "cypress run",
-    "test:open": "cypress open",
-    "start": "npm start"
+    "test:open": "cypress open"
   },
   "repository": {
     "type": "git",
